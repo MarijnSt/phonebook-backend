@@ -26,6 +26,7 @@ let persons = [
         "id": 4
     }
 ]
+
 const generateId = () => {
     const randomId = Math.floor(Math.random() * 99) + 1
     return randomId
@@ -34,6 +35,7 @@ const generateId = () => {
 //item toevoegen
 app.post('/api/persons', (req, res) => {
     const body = req.body
+    const check = persons.map(p => p.name)
 
     if(!body.name){
         return res.status(400).json({
@@ -42,6 +44,10 @@ app.post('/api/persons', (req, res) => {
     } else if(!body.number) {
         return res.status(400).json({
             error: 'number is missing'
+        })
+    } else if(check.includes(body.name)) {
+        return res.status(400).json({
+            error: 'name must be unique'
         })
     }
 
