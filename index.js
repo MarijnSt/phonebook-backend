@@ -25,6 +25,18 @@ const persons = [
     }
 ]
 
+//één item opvragen
+app.get('/api/persons/:id', (req, res) => {
+    const id = Number(req.params.id)
+    const person = persons.find(p => p.id === id)
+    if(person) {
+        res.send(person)
+    } else {
+        res.status(404).end()
+    }
+})
+
+//informatie over lijst
 app.get('/api/info', (req, res) => {
     const numberofpeople = persons.length
     const date = new Date()
@@ -34,6 +46,7 @@ app.get('/api/info', (req, res) => {
     res.end()
 })
 
+//volledige lijst krijgen
 app.get('/api/persons', (req, res) => {
     res.json(persons)
 })
