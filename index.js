@@ -25,6 +25,15 @@ const persons = [
     }
 ]
 
+app.get('/api/info', (req, res) => {
+    const numberofpeople = persons.length
+    const date = new Date()
+    console.log(date)
+    res.write(`<p>Phonebook has info on ${numberofpeople} people.</p>`)
+    res.write(`<p>${date}</p>`)
+    res.end()
+})
+
 app.get('/api/persons', (req, res) => {
     res.json(persons)
 })
